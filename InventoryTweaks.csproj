@@ -98,6 +98,8 @@
     <Compile Include="Common.cs" />
     <Compile Include="Core.cs" />
     <Compile Include="DefaultLanguage.cs" />
+    <Compile Include="HowCanItemBeUsed.cs" />
+    <Compile Include="HowCanItemBeUsedChecker.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Menus\MainMenu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

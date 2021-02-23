@@ -1,4 +1,5 @@
 ﻿using Kingmaker;
+using Kingmaker.Blueprints.Items.Equipment;
 using Kingmaker.Items;
 using Kingmaker.PubSubSystem;
 using Kingmaker.UI.Common;
@@ -117,7 +118,10 @@ namespace InventoryTweaks.UI
 
         private void UpdateText()
         {
-            string text = Item == null ? string.Empty : $"{Item.Name} x{Item.Count}";
+            var how = HowCanItemBeUsedChecker.Check(Item, UIUtility.GetCurrentCharacter());
+            var howText = HowCanItemBeUsedChecker.GetDescriptiveText(how);
+
+            string text = Item == null ? string.Empty : $"{Item.Name} x{Item.Count} {howText}";
 
             if (text != _previousText || _width != _label.rectTransform.rect.width)
             {
@@ -125,6 +129,7 @@ namespace InventoryTweaks.UI
                 _width = _label.rectTransform.rect.width;
 
                 _label.text = text;
+                _label.color = HowCanItemBeUsedChecker.GetColor(how);
                 _label.ForceMeshUpdate();
             }
         }
