@@ -133,7 +133,9 @@ namespace InventoryTweaks.UI
                 (UseableType == UsableItemType.Potion && (c.Blueprint.AssetGuid == "4639724c4a9cc9544a2f622b66931658" || c.Blueprint.AssetGuid == "fd56596e273d1ff49a8c29cc9802ae6e")))
                 .OrderBy(item => item.Name))
             {
-                container.Add(EnsureContainer(item, newCount++, ref isDirty));
+                var button = EnsureContainer(item, newCount++, ref isDirty);
+                if (button)
+                    container.Add(button);
             }
             if (newCount != oldCount)
             {
@@ -177,6 +179,8 @@ namespace InventoryTweaks.UI
         private HiButtonManager EnsureContainer(ItemEntity item, int index, ref bool isDirty)
         {
             int level = (item.Blueprint as BlueprintItemEquipmentUsable).SpellLevel;
+            if (level == 0)
+                return null;
 
             if (!_containerDict.TryGetValue(item, out HiButtonManager button))
             {
